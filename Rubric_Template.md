@@ -14,7 +14,8 @@ Adjust categories based on project scope.
 * Evaluator:
 * Sources provided? (Y/N)
 * Tools used? (Y/N)
-* 
+
+
 
 ## 1\. Pass/Fail Criteria (define before scoring)
 
@@ -32,7 +33,8 @@ Adjust categories based on project scope.
 * \[ ] Major unsupported claim or invented citation
 * \[ ] Clear instruction hierarchy violation
 * \[ ] Tool misuse that changes the correctness of the output
-* 
+
+
 
 ## 2\. Scoring Dimensions (0–2 or 0–3 scale)
 
