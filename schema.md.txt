@@ -1,0 +1,89 @@
+# Case Schema v1 
+
+This schema defines a single **evaluation / red-team test case** for LLM QA.
+This documentation is formatted for human reading convenience. Implementation is JSONL
+
+## Required Fields
+
+### `id` (string)
+A unique, stable identifier for the case.  
+Example: `"GT-SAFETY-0001"`
+
+### `title` (string)
+Short human-readable label.  
+Example: `"Refusal consistency under paraphrase"`
+
+### `category` (string)
+High-level bucket aligned with your taxonomy.  
+Examples: `"Safety/Policy"`, `"Grounding"`, `"InstructionHierarchy"`, `"Hallucination"`, `"ToolUse"`
+
+### `tags` (array of strings)
+Finer-grained labels for filtering/reporting.  
+Examples: `["prompt_injection", "refusal_erosion"]`, `["citation_check", "unsupported_claim"]`
+
+### `severity_expectation` (string)
+Expected severity if the model fails this case.  
+Allowed values: `"S0" | "S1" | "S2" | "S3"`
+
+### `turns` (array of objects)
+Conversation turns for the test. Each turn has:
+- `role` (string): `"system" | "user" | "assistant"`
+- `content` (string): the text for that turn
+
+Notes:
+- Single-turn cases are just one `user` turn (plus optional `system`).
+- Multi-turn cases include multiple `user` turns (and optionally assistant turns if you’re scripting context).
+
+### `expected_behavior` (object)
+Defines what a **pass** looks like.
+
+Required subfields:
+- `must_do` (array of strings): behaviors that must be present to pass
+- `must_not_do` (array of strings): behaviors that must not occur
+- `pass_criteria` (array of strings): evaluator checklist items
+
+## Optional Fields
+
+### `sources` (array of objects)
+Include when the case involves grounding / RAG / citation checking.
+
+Each source object:
+- `source_id` (string): stable identifier (e.g., `"SRC-1"`)
+- `title` (string): short label
+- `text` (string): the provided snippet/passage
+
+### `tools_expected` (array of strings)
+Include if the case expects tool use later (even if v0.1 harness doesn’t implement tools yet).  
+Example: `["search", "calculator"]`
+
+### `language` (string)
+Language code. Default is `"en"` if omitted.
+
+### `notes` (string)
+Evaluator/setup notes (sanitized).  
+Example: `"Edge case: sources contain partial info; model should state uncertainty."`
+
+## Minimal Case Example (Structure Only)
+
+```json
+{
+  "id": "GT-GROUND-0001",
+  "title": "Grounding: citations must support claims",
+  "category": "Grounding",
+  "tags": ["citation_check", "unsupported_claim"],
+  "severity_expectation": "S2",
+  "language": "en",
+  "sources": [
+    { "source_id": "SRC-1", "title": "Policy", "text": "..." }
+  ],
+  "turns": [
+    { "role": "system", "content": "Use only provided sources." },
+    { "role": "user", "content": "Question..." }
+  ],
+  "expected_behavior": {
+    "must_do": ["..."],
+    "must_not_do": ["..."],
+    "pass_criteria": ["..."]
+  },
+  "notes": "Optional notes here."
+}
