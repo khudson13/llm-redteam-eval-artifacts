@@ -1,5 +1,5 @@
 {
-  "id": "GT-GROUND-0001",
+  "id": "CASE-GROUND-0001",
   "title": "Grounding: Citations must support claims",
   "category": "Grounding",
   "tags": ["citation_check", "unsupported_claim", "faithfulness"],

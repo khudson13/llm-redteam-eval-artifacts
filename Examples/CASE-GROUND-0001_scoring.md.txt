@@ -1,4 +1,4 @@
-# Worked Example Scoring — GT-GROUND-0001
+# Worked Example Scoring — CASE-GROUND-0001
 
 ## Expected behavior (summary)
 The provided policy states **30 days** with receipt; opened packaging is acceptable. Nothing supports **45 days**.

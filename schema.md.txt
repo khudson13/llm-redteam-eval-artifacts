@@ -7,7 +7,7 @@ This documentation is formatted for human reading convenience. Implementation is
 
 ### `id` (string)
 A unique, stable identifier for the case.  
-Example: `"GT-SAFETY-0001"`
+Example: `"CASE-SAFETY-0001"`
 
 ### `title` (string)
 Short human-readable label.  
